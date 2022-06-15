@@ -27,7 +27,7 @@ import { useGetDetailNews } from "../../hook/NewsHook";
 
 function Mapbox() {
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyBWtdDMO4XPjHQaIM8G1KOf7lo2biodRPs",
+    googleMapsApiKey: "AIzaSyDxuThSDPSyivg0hs9-NOk_UvyrnVxRsQw",
     libraries: ["places"],
   });
   const idNews = getQueryVariable("id");

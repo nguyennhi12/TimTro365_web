@@ -1,4 +1,4 @@
-import { API_URL, NEWS } from "./config";
+import { API_URL, NEWS, ACCOUNT } from "./config";
 const NewsAPISetting = {
   getNewsofType: async (type) => {
     const endpoint = `${API_URL}${NEWS}/get_new_by_type?page=1&value=8`;
@@ -120,6 +120,77 @@ const NewsAPISetting = {
         
       })
     ).json();
+    return result;
+  },
+  getInformationById: async (id_user) => {
+    const endpoint = `${API_URL}${ACCOUNT}/get_infomation_byid`;
+    
+    const result = await (
+      await fetch(endpoint, {
+        method: "POST",
+        body: JSON.stringify({ id_user }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          
+        },
+      })
+    ).json();
+    return result;
+  },
+  getRatingNewByIdNew: async (id_news) => {
+    
+    const endpoint = `${API_URL}${NEWS}/get_rattingnews_byidnews`;
+    const token = localStorage.getItem("token");
+    const result = await (
+      await fetch(endpoint, {
+        method: "POST",
+        body: JSON.stringify({id_news}),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    ).json();
+    return result;
+  },
+  getGoiYNews: async (id_user, id_news) => {
+    const endpoint = `${API_URL}${NEWS}/get_goiy_news`;
+    const result = await (
+      await fetch(endpoint, {
+        method: "POST",
+        body: JSON.stringify({ id_user, id_news }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+    ).json();
+    return result;
+  },
+  hideNews: async (props) => {
+    const endpoint = `${API_URL}${NEWS}/hideNews`;
+    const token = localStorage.getItem("token");
+    const result = await fetch(endpoint, {
+      method: 'POST',
+      body: JSON.stringify({id_news: props?.idNews}),
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${props?.token}`,
+      },
+    })
+      .then(e => {
+        return e.text();
+      })
+      .then(text => {
+        console.log(text);
+        return JSON.parse(text);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     return result;
   },
 };

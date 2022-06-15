@@ -21,6 +21,7 @@ export const Wrapper = styled.div`
         display: block ;
         margin: 0% auto 0% auto ;        
         width: 100%;
+        height: 100%
     }
     .ListItem{
         width: 10%;
@@ -92,5 +93,10 @@ export const InfoNews = styled.div `
 export const News_GoiY = styled.div`
     margin: 1% auto 1% auto ;
     width: 80% ;
-    
+    .Image{
+      
+        margin: 0% auto 0% auto ;        
+        width: 100%;
+        height: 100%
+    }
 `

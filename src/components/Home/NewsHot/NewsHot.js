@@ -55,7 +55,8 @@ const NewsHot = () => {
                       <IconButton
                         sx={{ color: "rgba(255, 255, 255, 0.54)" }}
                         aria-label={`info about ${item?.cost}`}
-                        href="http://localhost:3000/viewroom?id=NEWS96177E23-E7ED-49B4"
+                         href={`http://localhost:3000/viewroom?id=${item.id_news}`}
+                         target={"_blank"}
                       >
                         <AiFillInfoCircle />
                       </IconButton>

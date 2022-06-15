@@ -33,6 +33,7 @@ export const useGetDetailNews = (idNews) => {
       const detail = await NewsAPISetting.getNewsOfNew(idNews);
       if (detail.statusCode == 200) {
         setNews(detail.data);
+        localStorage.setItem("iduser", JSON.stringify(detail?.data[0].id_user));
       }
       setIsLoadingGetNews(!isLoadingGetNews);
     } catch (error) {
@@ -58,6 +59,7 @@ export const useGetDetailNewsImage = (idNews) => {
       const detail = await NewsAPISetting.getNewsOfNewImage(idNews);
       if (detail.statusCode == 200) {
         setNews(detail.data);
+        
       }
       setIsLoadingGetNews(!isLoadingGetNews);
     } catch (error) {
@@ -107,7 +109,7 @@ export const useGetHotNews = () => {
   return { news, isLoadingGetNews };
 };
 export const SearchAll = (searchkey) => {
-  console.log(searchkey)
+  
   const [news, setNews] = useState([]);
   const [isLoadingGetNews, setIsLoadingGetNews] = useState(false);
   const fetchNews = useCallback(async () => {
@@ -132,3 +134,110 @@ export const SearchAll = (searchkey) => {
   }, [isLoadingGetNews, news, fetchNews]);
   return { news, isLoadingGetNews };
 };
+export const HookGetInformationById = (id_user) => {
+  
+  const [news, setNews] = useState([]);
+  const [isLoadingGetNews, setIsLoadingGetNews] = useState(false);
+  const fetchNews = useCallback(async () => {
+    try {
+      const detail = await NewsAPISetting.getInformationById(id_user);
+      if (detail.statusCode == 200) {
+        console.log(detail)
+       
+        setNews(detail.data);
+      }
+      setIsLoadingGetNews(!isLoadingGetNews);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+  useEffect(() => {
+    try {
+      if (isLoadingGetNews == false) {
+        fetchNews();
+      }
+    } catch (error) {
+      console.warn(error);
+    }
+  }, [isLoadingGetNews, news, fetchNews]);
+  return { news, isLoadingGetNews };
+};
+export const HookRatingNewByIdNew = (id_news) => {
+  
+  const [news, setNews] = useState([]);
+  const [isLoadingGetNews, setIsLoadingGetNews] = useState(false);
+  const fetchNews = useCallback(async () => {
+    try {
+      const detail = await NewsAPISetting.getRatingNewByIdNew(id_news);
+      if (detail.statusCode == 200) {
+        setNews(detail.data);
+      }
+      setIsLoadingGetNews(!isLoadingGetNews);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+  useEffect(() => {
+    try {
+      if (isLoadingGetNews == false) {
+        fetchNews();
+      }
+    } catch (error) {
+      console.warn(error);
+    }
+  }, [isLoadingGetNews, news, fetchNews]);
+  return { news, isLoadingGetNews };
+};
+export const useHookGetGoiYNews = (id_user,id_news) => {
+  
+  const [news, setNews] = useState([]);
+  const [isLoadingGetNews, setIsLoadingGetNews] = useState(false);
+  const fetchNews = useCallback(async () => {
+    try {
+      const detail = await NewsAPISetting.getGoiYNews(id_user,id_news);
+      if (detail.statusCode == 200) {
+        setNews(detail.data);
+      }
+      setIsLoadingGetNews(!isLoadingGetNews);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+  useEffect(() => {
+    try {
+      if (isLoadingGetNews == false) {
+        fetchNews();
+      }
+    } catch (error) {
+      console.warn(error);
+    }
+  }, [isLoadingGetNews, news, fetchNews]);
+  return { news, isLoadingGetNews };
+};
+export const HookHideNew= (id_news) => {
+  
+  const [news, setNews] = useState([]);
+  const [isLoadingGetNews, setIsLoadingGetNews] = useState(false);
+  const fetchNews = useCallback(async () => {
+    try {
+      const detail = await NewsAPISetting.hideNews(id_news);
+      if (detail.statusCode == 200) {
+        setNews(detail.data);
+      }
+      setIsLoadingGetNews(!isLoadingGetNews);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+  useEffect(() => {
+    try {
+      if (isLoadingGetNews == false) {
+        fetchNews();
+      }
+    } catch (error) {
+      console.warn(error);
+    }
+  }, [isLoadingGetNews, news, fetchNews]);
+  return { news, isLoadingGetNews };
+};
+

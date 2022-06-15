@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import {
   Wrapper,
   ListImageRoom,
@@ -35,15 +36,32 @@ import {
 } from "@mui/material";
 import { AiFillInfoCircle } from "react-icons/ai";
 import Toolbar from "../Home/Toolbar/Toolbar";
-import { useGetDetailNews, useGetDetailNewsImage } from "../../hook/NewsHook";
+import {
+  useGetDetailNews,
+  useGetDetailNewsImage,
+  HookGetInformationById,
+  HookRatingNewByIdNew,
+  useHookGetGoiYNews,
+} from "../../hook/NewsHook";
 import { getQueryVariable } from "../../helper";
+import Rating from "@mui/material/Rating";
 const ViewRoom = () => {
   const [infonews, setinfonews] = useState(true);
   const idNews = getQueryVariable("id");
+  console.log(idNews);
   const { news } = useGetDetailNews(idNews);
   const { news: newsimage } = useGetDetailNewsImage(idNews);
+  
+  const { news: newsrating } = HookRatingNewByIdNew(idNews);
   console.log(news);
-  console.log(newsimage);
+  console.log(!!newsrating?.length);
+  const iduser = JSON.parse(localStorage.getItem("iduser"));
+  console.log(iduser);
+  const { news: newsinformation } = HookGetInformationById(iduser);
+  console.log(newsinformation);
+  const { news: newsgoiy } = useHookGetGoiYNews(iduser,idNews);
+  console.log(newsgoiy)
+
   const itemData = [
     {
       img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
@@ -155,7 +173,7 @@ const ViewRoom = () => {
                             <GrSchedule size={20} style={{margin:"0% 1% 1% 0%"}}/> Đặt lịch hẹn
                         </Button>
                     </div> */}
-          <div style={{ display: "flex", marginTop: "2%" }}>
+          {/* <div style={{ display: "flex", marginTop: "2%" }}>
             <p style={{ marginTop: "5%" }}>Chia sẻ với:</p>
             <div>
               <ListGroup horizontal={true} style={{ width: "180%" }}>
@@ -169,7 +187,7 @@ const ViewRoom = () => {
                 </ListGroup.Item>
               </ListGroup>
             </div>
-          </div>
+          </div> */}
         </Info>
       </ImageRoom_Cost>
       <ListImageRoom>
@@ -192,14 +210,11 @@ const ViewRoom = () => {
         </ListGroup>
       </ListImageRoom>
       <InfoInn>
-        <Image
-          src={`https://drive.google.com/uc?id=1V2kkJPnVaa3y3zGtUQ0oPPJnlKdYEt0E`}
-          className="avatar"
-        />
+        <Image src={newsinformation[0]?.image} className="avatar" />
         <div className="info">
-          <h6>Đỗ Ngọc Trọng</h6>
-          <p>số 1, Võ Văn Ngân, phường Linh Chiểu, TP Thủ Đức, TPHCM</p>
-          <p>0908986918</p>
+          <h6>{newsinformation[0]?.displayname}</h6>
+          <p>{newsinformation[0]?.address}</p>
+          <p>{newsinformation[0]?.phonenumber}</p>
         </div>
       </InfoInn>
       <InfoNews>
@@ -220,7 +235,7 @@ const ViewRoom = () => {
                       </Nav.Link>
                     </div>
                   </Nav.Item>
-                  <Nav.Item>
+                  {/* <Nav.Item>
                     <div id="info-review">
                       <Nav.Link
                         eventKey="second"
@@ -231,7 +246,7 @@ const ViewRoom = () => {
                         Đánh giá và nhận xét
                       </Nav.Link>
                     </div>
-                  </Nav.Item>
+                  </Nav.Item> */}
                 </Nav>
               </Col>
               <Col sm={9}>
@@ -239,7 +254,24 @@ const ViewRoom = () => {
                   <Tab.Pane eventKey="first">
                     <pre>{news[0]?.description}</pre>
                   </Tab.Pane>
-                  <Tab.Pane eventKey="second"></Tab.Pane>
+                  {/* <Tab.Pane eventKey="second">
+                    {!!newsrating?.length ? (
+                      <InfoInn>
+                        <Image
+                          src={newsinformation[0]?.image}
+                          className="avatar"
+                        />
+                        <div className="info">
+                          <Rating name="read-only" value={2} readOnly />
+                          <h6>{newsinformation[0]?.displayname}</h6>
+                          <p>{newsinformation[0]?.address}</p>
+                          <p>{newsinformation[0]?.phonenumber}</p>
+                        </div>
+                      </InfoInn>
+                    ) : (
+                      <div>Chưa có đánh giá</div>
+                    )}
+                  </Tab.Pane> */}
                 </Tab.Content>
               </Col>
             </Row>
@@ -285,27 +317,27 @@ const ViewRoom = () => {
           container
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 9, md: 20 }}
-          className="grid"
+          
         >
-          {itemData.map((item) => (
+          {newsgoiy.map((item) => (
             // xs: cực nhỏ <576px, sm: nhỏ ≥576px, md: trung bình ≥768px
             // md thì có 16 col, mà ở grid dưới md chiếm 4 col => có 16/4 = 4 hình
-            <Grid item xs={2} sm={4} md={4} key={item.img} className="grid-in">
-              <ImageListItem key={item.img}>
+            <Grid item xs={2} sm={4} md={4} key={item.img} >
+              <ImageListItem key={item?.image} style= {{height: "200px", width: "100%"}}>
                 <img
-                  src={`${item.img}?w=248&fit=crop&auto=format`}
-                  srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.title}
+                  src={`${item?.image}`}
+                  srcSet={`${item?.image}`}
                   loading="lazy"
                 />
                 <ImageListItemBar
-                  title={item.title}
-                  subtitle={item.author}
+                  title={`${item?.cost} triệu`}
+                  subtitle={`${item?.header}`}
+                  
                   actionIcon={
                     <IconButton
                       sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                      aria-label={`info about ${item.title}`}
-                      href="http://localhost:3000/viewroom?id=NEWS96177E23-E7ED-49B4"
+                      aria-label={`info about ${item?.cost}`}
+                      href={`http://localhost:3000/viewroom?id=${item.id_news}`}
                       target={"_blank"}
                     >
                       <AiFillInfoCircle />

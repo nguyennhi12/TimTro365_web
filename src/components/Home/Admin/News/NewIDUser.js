@@ -9,6 +9,7 @@ import {
   HookGetAdminAllInnkeeper,
   HookAdminNewsByInnkeeper,
 } from "../../../../hook/AdminHook";
+import { HookHideNew } from "../../../../hook/NewsHook";
 import { getQueryVariable } from "../../../../helper";
 
 const NewIDUser = () => {
@@ -18,7 +19,9 @@ const NewIDUser = () => {
   const [key, setKey] = useState("new");
   const { news } = HookGetAdminAllInnkeeper(idtoken);
   const { news: newsby } = HookAdminNewsByInnkeeper(iduser);
+  const { news: newshide } = HookHideNew(iduser);
   console.log(newsby);
+  console.log(newshide);
   const data = [
     {
       id: 1,
