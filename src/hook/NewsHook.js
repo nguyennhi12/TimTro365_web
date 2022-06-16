@@ -59,7 +59,6 @@ export const useGetDetailNewsImage = (idNews) => {
       const detail = await NewsAPISetting.getNewsOfNewImage(idNews);
       if (detail.statusCode == 200) {
         setNews(detail.data);
-        
       }
       setIsLoadingGetNews(!isLoadingGetNews);
     } catch (error) {
@@ -109,7 +108,6 @@ export const useGetHotNews = () => {
   return { news, isLoadingGetNews };
 };
 export const SearchAll = (searchkey) => {
-  
   const [news, setNews] = useState([]);
   const [isLoadingGetNews, setIsLoadingGetNews] = useState(false);
   const fetchNews = useCallback(async () => {
@@ -135,15 +133,14 @@ export const SearchAll = (searchkey) => {
   return { news, isLoadingGetNews };
 };
 export const HookGetInformationById = (id_user) => {
-  
   const [news, setNews] = useState([]);
   const [isLoadingGetNews, setIsLoadingGetNews] = useState(false);
   const fetchNews = useCallback(async () => {
     try {
       const detail = await NewsAPISetting.getInformationById(id_user);
       if (detail.statusCode == 200) {
-        console.log(detail)
-       
+        console.log(detail);
+
         setNews(detail.data);
       }
       setIsLoadingGetNews(!isLoadingGetNews);
@@ -163,14 +160,15 @@ export const HookGetInformationById = (id_user) => {
   return { news, isLoadingGetNews };
 };
 export const HookRatingNewByIdNew = (id_news) => {
-  
   const [news, setNews] = useState([]);
   const [isLoadingGetNews, setIsLoadingGetNews] = useState(false);
+  const [avgRating, setAvgRating] = useState();
   const fetchNews = useCallback(async () => {
     try {
       const detail = await NewsAPISetting.getRatingNewByIdNew(id_news);
       if (detail.statusCode == 200) {
         setNews(detail.data);
+        setAvgRating(detail?.avgRattingNews);
       }
       setIsLoadingGetNews(!isLoadingGetNews);
     } catch (error) {
@@ -186,15 +184,14 @@ export const HookRatingNewByIdNew = (id_news) => {
       console.warn(error);
     }
   }, [isLoadingGetNews, news, fetchNews]);
-  return { news, isLoadingGetNews };
+  return { news, isLoadingGetNews, avgRating };
 };
-export const useHookGetGoiYNews = (id_user,id_news) => {
-  
+export const useHookGetGoiYNews = (id_user, id_news) => {
   const [news, setNews] = useState([]);
   const [isLoadingGetNews, setIsLoadingGetNews] = useState(false);
   const fetchNews = useCallback(async () => {
     try {
-      const detail = await NewsAPISetting.getGoiYNews(id_user,id_news);
+      const detail = await NewsAPISetting.getGoiYNews(id_user, id_news);
       if (detail.statusCode == 200) {
         setNews(detail.data);
       }
@@ -214,8 +211,7 @@ export const useHookGetGoiYNews = (id_user,id_news) => {
   }, [isLoadingGetNews, news, fetchNews]);
   return { news, isLoadingGetNews };
 };
-export const HookHideNew= (id_news) => {
-  
+export const HookHideNew = (id_news) => {
   const [news, setNews] = useState([]);
   const [isLoadingGetNews, setIsLoadingGetNews] = useState(false);
   const fetchNews = useCallback(async () => {
@@ -240,4 +236,3 @@ export const HookHideNew= (id_news) => {
   }, [isLoadingGetNews, news, fetchNews]);
   return { news, isLoadingGetNews };
 };
-

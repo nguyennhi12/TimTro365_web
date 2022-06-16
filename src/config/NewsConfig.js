@@ -117,14 +117,13 @@ const NewsAPISetting = {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
         },
-        
       })
     ).json();
     return result;
   },
   getInformationById: async (id_user) => {
     const endpoint = `${API_URL}${ACCOUNT}/get_infomation_byid`;
-    
+
     const result = await (
       await fetch(endpoint, {
         method: "POST",
@@ -132,20 +131,18 @@ const NewsAPISetting = {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          
         },
       })
     ).json();
     return result;
   },
   getRatingNewByIdNew: async (id_news) => {
-    
-    const endpoint = `${API_URL}${NEWS}/get_rattingnews_byidnews`;
+    const endpoint = `${API_URL}${NEWS}/get_rattingnews_byidnewsAdmin`;
     const token = localStorage.getItem("token");
     const result = await (
       await fetch(endpoint, {
         method: "POST",
-        body: JSON.stringify({id_news}),
+        body: JSON.stringify({ id_news }),
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
@@ -153,6 +150,7 @@ const NewsAPISetting = {
         },
       })
     ).json();
+    console.log(result);
     return result;
   },
   getGoiYNews: async (id_user, id_news) => {
@@ -173,18 +171,18 @@ const NewsAPISetting = {
     const endpoint = `${API_URL}${NEWS}/hideNews`;
     const token = localStorage.getItem("token");
     const result = await fetch(endpoint, {
-      method: 'POST',
-      body: JSON.stringify({id_news: props?.idNews}),
+      method: "POST",
+      body: JSON.stringify({ id_news: props?.idNews }),
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+        "Content-Type": "application/json",
+        Accept: "application/json",
         Authorization: `Bearer ${props?.token}`,
       },
     })
-      .then(e => {
+      .then((e) => {
         return e.text();
       })
-      .then(text => {
+      .then((text) => {
         console.log(text);
         return JSON.parse(text);
       })

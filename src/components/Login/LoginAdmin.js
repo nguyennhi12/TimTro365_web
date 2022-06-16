@@ -8,6 +8,7 @@ import { ImFacebook2 } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
 import AdminAPISetting from "../../config/AdminConfig";
 import HomeAdmin from "../Home/Admin/HomeAdmin";
+import { HookGetAdminAllInnkeeper } from "../../hook/AdminHook";
 const LoginAdmin = () => {
   const [username_admin, setUsername_admin] = useState();
   const [password_admin, setPassword_admin] = useState();
@@ -28,31 +29,21 @@ const LoginAdmin = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const result = await AdminAPISetting.getLoginAdmin(admin);
-
       console.log(result);
-
       if (result.statusCode === 200) {
         localStorage.setItem("token", result?.data.token);
         localStorage.setItem("account", JSON.stringify(result?.data));
-        alert ("Đăng nhập thành công")
+        // const { account } = HookGetAdminAllInnkeeper(result?.data.token);
+        // localStorage.setItem("listAccount", JSON.stringify(account));
+        alert("Đăng nhập thành công");
         navigate(`/admin?token=${result?.data.token}`);
-      }
-      else{
-        alert("Lỗi đăng nhập")
+      } else {
+        alert("Lỗi đăng nhập");
       }
     } catch (error) {
-      
       console.log(error);
-      alert("Lỗi đăng nhập")
+      alert("Lỗi đăng nhập");
     }
-    // try {
-    //   const detail = await AdminAPISetting.getLoginAdmin(admin);
-    //   if (detail.statusCode == 200) {
-    //     console.log(detail);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
   }
 
   return (
@@ -75,7 +66,7 @@ const LoginAdmin = () => {
           <Form.Label>Username </Form.Label>
           <Form.Control
             type="username"
-            placeholder="Enter email"
+            placeholder="Enter username"
             onChange={changeusername}
             value={username_admin}
           />

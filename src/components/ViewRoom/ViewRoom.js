@@ -8,6 +8,7 @@ import {
   InfoInn,
   InfoNews,
   News_GoiY,
+  InfoRating,
 } from "./ViewRoom.styles";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -45,59 +46,43 @@ import {
 } from "../../hook/NewsHook";
 import { getQueryVariable } from "../../helper";
 import Rating from "@mui/material/Rating";
+import HeaderAdmin from "../HeaderAdmin/HeaderAdmin";
+import AdminAPISetting from "../../config/AdminConfig";
+import { config, realtimeDB } from "../../config/configFirebase";
+
 const ViewRoom = () => {
   const [infonews, setinfonews] = useState(true);
   const idNews = getQueryVariable("id");
-  console.log(idNews);
   const { news } = useGetDetailNews(idNews);
   const { news: newsimage } = useGetDetailNewsImage(idNews);
-  
-  const { news: newsrating } = HookRatingNewByIdNew(idNews);
+  const { news: newsrating, avgRating } = HookRatingNewByIdNew(idNews);
   console.log(news);
-  console.log(!!newsrating?.length);
   const iduser = JSON.parse(localStorage.getItem("iduser"));
-  console.log(iduser);
+  console.log("news", news, newsrating, avgRating);
   const { news: newsinformation } = HookGetInformationById(iduser);
-  console.log(newsinformation);
-  const { news: newsgoiy } = useHookGetGoiYNews(iduser,idNews);
-  console.log(newsgoiy)
-
-  const itemData = [
-    {
-      img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-      title: "Breakfast",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-      title: "Burger",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-      title: "Camera",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-      title: "Coffee",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-      title: "Hats",
-      author: "@hjrc33",
-      cols: 2,
-    },
-    {
-      img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-      title: "Honey",
-      author: "@arwinneil",
-      rows: 2,
-      cols: 2,
-      featured: true,
-    },
-  ];
-  const onClickShareFB = () => {
-    return console.log();
+  const { news: newsgoiy } = useHookGetGoiYNews(iduser, idNews);
+  const hideNewsAdmin = async () => {
+    const result = await AdminAPISetting.hideNewsAdmin(idNews);
+    // console.log(result);
+    // notificationNewsHideByAdmin();
+    alert(result?.message);
   };
-  const mapclick = () => {};
+  // const notificationNewsHideByAdmin = () => {
+  //   realtimeDB
+  //     .ref(
+  //       "notificationNewsHideByAdmin/" +
+  //         newsinformation[0]?.id_news +
+  //         "_" +
+  //         idNews
+  //     )
+  //     .set({
+  //       message: `Xin thông báo, bản tin có chủ đề ${news[0]?.header}
+  //               được đăng vào ngày ${news[0]?.time_create}
+  //               đã bị khóa vì lý do: Có lượng đánh giá thấp nhiều hơn 10 lần
+  //               Đánh giá hiện tại: ${avgRating}. Trân trọng`,
+  //       position: "Admin",
+  //     });
+  // };
   useEffect(() => {
     try {
       if (infonews === true) {
@@ -121,17 +106,8 @@ const ViewRoom = () => {
   }, [newsimage]);
   return (
     <Wrapper>
-      <Header />
-      <Toolbar />
-      <Breadcrumb className="breadcrum">
-        <Breadcrumb.Item
-          href="http://localhost:3000/"
-          className="breadcrum-item"
-        >
-          Trang chủ
-        </Breadcrumb.Item>
-        <Breadcrumb.Item active>{news[0]?.header}</Breadcrumb.Item>
-      </Breadcrumb>
+      <HeaderAdmin />
+      <h4 style={{ marginLeft: "10%", marginTop: 20 }}>Chi tiết bản tin</h4>
       <ImageRoom_Cost>
         <Image
           src={`${ImageRoom}`}
@@ -167,27 +143,28 @@ const ViewRoom = () => {
             <p style={{ marginTop: "4%", fontSize: 20 }}>Giá:</p>{" "}
             <h1 className="cost">{news[0]?.cost} triệu VNĐ</h1>
           </div>
-          {/* <div className="d-grid gap-2">
-                        <Button variant="warning" size="lg" style={{marginTop:"2%"}}
-                         href="http://localhost:3000/setschedule?idnews=NEWS96177E23-E7ED-49B4" target="_blank">
-                            <GrSchedule size={20} style={{margin:"0% 1% 1% 0%"}}/> Đặt lịch hẹn
-                        </Button>
-                    </div> */}
-          {/* <div style={{ display: "flex", marginTop: "2%" }}>
-            <p style={{ marginTop: "5%" }}>Chia sẻ với:</p>
-            <div>
-              <ListGroup horizontal={true} style={{ width: "180%" }}>
-                <ListGroup.Item
-                  action
-                  onClick={() => onClickShareFB()}
-                  className="ListItem"
-                  key="fb"
-                >
-                  <GrFacebook size={40} />
-                </ListGroup.Item>
-              </ListGroup>
+          {(avgRating && (
+            <div style={{ margin: 20 }}>
+              <tr>
+                <th style={{ width: 200 }}>
+                  <h4 className="cost">Đánh giá:</h4>
+                </th>
+                <th>
+                  <Rating name="read-only" value={avgRating} readOnly />
+                </th>
+              </tr>
             </div>
-          </div> */}
+          )) || <h4 className="cost">Chưa có đánh giá</h4>}
+          <div className="d-grid gap-2">
+            <Button
+              variant="warning"
+              size="lg"
+              style={{ marginTop: "2%" }}
+              onClick={hideNewsAdmin}
+            >
+              Khóa bản tin
+            </Button>
+          </div>
         </Info>
       </ImageRoom_Cost>
       <ListImageRoom>
@@ -210,7 +187,11 @@ const ViewRoom = () => {
         </ListGroup>
       </ListImageRoom>
       <InfoInn>
-        <Image src={newsinformation[0]?.image} className="avatar" />
+        <Image
+          src={newsinformation[0]?.image}
+          className="avatar"
+          style={{ width: 130 }}
+        />
         <div className="info">
           <h6>{newsinformation[0]?.displayname}</h6>
           <p>{newsinformation[0]?.address}</p>
@@ -235,7 +216,7 @@ const ViewRoom = () => {
                       </Nav.Link>
                     </div>
                   </Nav.Item>
-                  {/* <Nav.Item>
+                  <Nav.Item>
                     <div id="info-review">
                       <Nav.Link
                         eventKey="second"
@@ -246,7 +227,7 @@ const ViewRoom = () => {
                         Đánh giá và nhận xét
                       </Nav.Link>
                     </div>
-                  </Nav.Item> */}
+                  </Nav.Item>
                 </Nav>
               </Col>
               <Col sm={9}>
@@ -254,24 +235,47 @@ const ViewRoom = () => {
                   <Tab.Pane eventKey="first">
                     <pre>{news[0]?.description}</pre>
                   </Tab.Pane>
-                  {/* <Tab.Pane eventKey="second">
+                  <Tab.Pane eventKey="second">
                     {!!newsrating?.length ? (
-                      <InfoInn>
-                        <Image
-                          src={newsinformation[0]?.image}
-                          className="avatar"
-                        />
-                        <div className="info">
-                          <Rating name="read-only" value={2} readOnly />
-                          <h6>{newsinformation[0]?.displayname}</h6>
-                          <p>{newsinformation[0]?.address}</p>
-                          <p>{newsinformation[0]?.phonenumber}</p>
-                        </div>
-                      </InfoInn>
+                      newsrating?.map((item) => {
+                        return (
+                          <InfoRating>
+                            <img
+                              alt={item?.displayname}
+                              src={item?.avatar}
+                              style={{
+                                height: 80,
+                                width: 80,
+                                borderRadius: 50,
+                              }}
+                            />
+                            <div className="info">
+                              <Rating
+                                name="read-only"
+                                value={item?.ratting}
+                                readOnly
+                              />
+                              <h6>{item?.displayname}</h6>
+                              <p>{item?.review}</p>
+                              {item?.imageRatting?.map((item) => (
+                                <img
+                                  style={{
+                                    width: 80,
+                                    height: 80,
+                                    marginRight: 10,
+                                  }}
+                                  alt={item?.id_user}
+                                  src={item?.image}
+                                />
+                              ))}
+                            </div>
+                          </InfoRating>
+                        );
+                      })
                     ) : (
                       <div>Chưa có đánh giá</div>
                     )}
-                  </Tab.Pane> */}
+                  </Tab.Pane>
                 </Tab.Content>
               </Col>
             </Row>
@@ -317,13 +321,15 @@ const ViewRoom = () => {
           container
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 9, md: 20 }}
-          
         >
           {newsgoiy.map((item) => (
             // xs: cực nhỏ <576px, sm: nhỏ ≥576px, md: trung bình ≥768px
             // md thì có 16 col, mà ở grid dưới md chiếm 4 col => có 16/4 = 4 hình
-            <Grid item xs={2} sm={4} md={4} key={item.img} >
-              <ImageListItem key={item?.image} style= {{height: "200px", width: "100%"}}>
+            <Grid item xs={2} sm={4} md={4} key={item.img}>
+              <ImageListItem
+                key={item?.image}
+                style={{ height: "200px", width: "100%" }}
+              >
                 <img
                   src={`${item?.image}`}
                   srcSet={`${item?.image}`}
@@ -332,7 +338,6 @@ const ViewRoom = () => {
                 <ImageListItemBar
                   title={`${item?.cost} triệu`}
                   subtitle={`${item?.header}`}
-                  
                   actionIcon={
                     <IconButton
                       sx={{ color: "rgba(255, 255, 255, 0.54)" }}
