@@ -314,7 +314,7 @@ const ViewRoom = () => {
       <News_GoiY>
         <div style={{ background: "#FFC938" }}>
           <h3 style={{ margin: "0 auto 2% auto", width: "30%" }}>
-            SẢN PHẨM LIÊN QUAN
+            SẢN PHẨM LIÊN QUAN:
           </h3>
         </div>
         <Grid
