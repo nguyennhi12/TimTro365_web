@@ -98,9 +98,6 @@ const Account = (props) => {
           <Skeleton height={100} width={"100%"} />
         )}
       </Grid>
-      <h4 style={{ marginLeft: "10%", marginTop: "1%" }}>
-        Danh sách tài khoản đã bị khóa:
-      </h4>
     </Wrapper>
   );
 };

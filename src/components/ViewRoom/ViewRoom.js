@@ -122,13 +122,7 @@ const ViewRoom = () => {
             <h4>{news[0]?.header}</h4>
             <p>
               {" "}
-              <Button
-                href={`http://localhost:3000/mapbox?id=${news[0]?.id_news}`}
-                target="_blank"
-                style={{ backgroundColor: "white", borderColor: "white" }}
-              >
-                <HiLocationMarker size={25} color="red" />
-              </Button>
+              <HiLocationMarker size={25} color="red" />
               {news[0]?.address}.
             </p>
           </div>
@@ -314,7 +308,7 @@ const ViewRoom = () => {
       <News_GoiY>
         <div style={{ background: "#FFC938" }}>
           <h3 style={{ margin: "0 auto 2% auto", width: "30%" }}>
-            SẢN PHẨM LIÊN QUAN:
+            SẢN PHẨM LIÊN QUAN
           </h3>
         </div>
         <Grid

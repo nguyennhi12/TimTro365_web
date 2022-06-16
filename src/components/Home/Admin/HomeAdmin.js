@@ -50,14 +50,6 @@ const HomeAdmin = () => {
         >
           News
         </Button>
-        <Button
-          aria-controls="simple-menu"
-          aria-haspopup="true"
-          onClick={() => setcheck(2)}
-          className="button"
-        >
-          Rating
-        </Button>
       </Headertool>
 
       {check == 1 ? (

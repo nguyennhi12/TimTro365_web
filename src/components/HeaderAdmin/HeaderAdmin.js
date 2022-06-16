@@ -17,14 +17,13 @@ const HeaderAdmin = () => {
   return (
     <Wrapper>
       <Links>
-        <a href="http://localhost:3000/" className="a-img">
+        <a className="a-img">
           <img src={logo} alt="Cinque Terre" className="img-logo" />
         </a>
         <Content>
           <label className="label-user">{account?.name_admin}</label>
           <img src={account?.image_admin} className="img-user" />
         </Content>
-       
       </Links>
     </Wrapper>
   );

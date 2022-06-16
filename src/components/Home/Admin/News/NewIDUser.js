@@ -3,7 +3,7 @@ import { Wrapper, Content, Headertool } from "./NewIDUser.styles";
 import HeaderAdmin from "../../../HeaderAdmin/HeaderAdmin";
 
 import { Form, Table, Tabs, Tab } from "react-bootstrap";
-import Button from "@material-ui/core/Button";
+import { Button } from "react-bootstrap";
 import Footer from "../../../Footer/Footer";
 import {
   HookGetAdminAllInnkeeper,
@@ -96,7 +96,7 @@ const NewIDUser = () => {
                 <td>{item?.header}</td>
                 <td>{item?.time_create}</td>
                 <td>{item?.address}</td>
-                <td>{data[item?.type-1]?.title}</td>
+                <td>{data[item?.type - 1]?.title}</td>
                 <td>
                   <img
                     style={{ height: 80, width: 80 }}

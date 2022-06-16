@@ -29,7 +29,6 @@ function App() {
         <Route path="/chatbox" element={<Chatbox />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgotpassword" element={<Forgotpassword />} />
-        {/* <Route path="/mapbox" element={<Mapbox />} /> */}
         <Route path="/post" element={<Post />} />
         <Route path="/searchall" element={<SearchAll />} />
       </Routes>

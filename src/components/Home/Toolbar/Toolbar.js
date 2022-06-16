@@ -1,6 +1,6 @@
 import React from "react";
 import { Wrapper } from "./Toolbar.styles";
-import Button from "@material-ui/core/Button";
+import { Button } from "react-bootstrap";
 import { HookGetNewsOfType } from "../../../hook/NewsHook";
 const Toolbar = () => {
   const handleClick = (event) => {};
@@ -9,17 +9,16 @@ const Toolbar = () => {
   const { news: chungcu, checkchungcu } = HookGetNewsOfType(3);
   const { news: oghep, checkoghep } = HookGetNewsOfType(4);
   const { news: canho, checkcanho } = HookGetNewsOfType(5);
- 
+
   return (
     <Wrapper>
       <Button
         aria-controls="simple-menu"
         aria-haspopup="true"
-        href={`http://localhost:3000/category?danhmuc=1`}    
+        href={`http://localhost:3000/category?danhmuc=1`}
         target={"_blank"}
         className="button"
       >
-     
         Nhà trọ
       </Button>
 
