@@ -6,7 +6,7 @@ import { FormControl, InputGroup, Button } from "react-bootstrap";
 import { FaSistrix } from "react-icons/fa";
 import { SearchAll } from "../../hook/NewsHook";
 import NewsAPISetting from "../../config/NewsConfig";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Header = () => {
   const [key, setkey] = useState("");
   const [news, setNews] = useState([]);
@@ -19,9 +19,8 @@ const Header = () => {
     if (detail.statusCode == 200) {
       setNews(detail.data);
       navigate(`/searchall?key=${key}`);
-     }
-    else{
-      alert("không có bản tin phù hợp")
+    } else {
+      alert("không có bản tin phù hợp");
     }
   };
   console.log(news);
@@ -38,23 +37,7 @@ const Header = () => {
         <a href="http://localhost:3000/" className="a-img">
           <img src={logo} alt="Cinque Terre" className="img-logo" />
         </a>
-        <InputGroup className="mb-3 search">
-          <FormControl
-            placeholder="Tìm kiếm bản tin ...."
-            aria-describedby="basic-addon2"
-            className="input"
-            onChange={handleInputChange}
-            
-          
-          />
-          <Button
-            onClick={onSearch}
-            variant="outline-warning"
-            className="button-search"
-          >
-            <FaSistrix icon="FaSistrix" size={30} />
-          </Button>
-        </InputGroup>
+
         <img src={smile} alt="smile"></img>
       </Content>
     </Wrapper>

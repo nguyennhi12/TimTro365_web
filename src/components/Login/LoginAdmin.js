@@ -1,14 +1,12 @@
 import React, { useState, useCallback } from "react";
 import { Wrapper, FB_GG } from "./Login.styles";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
-import { Breadcrumb, Form, Button } from "react-bootstrap";
+
+import { Breadcrumb, Form, Button, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { ImFacebook2 } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
 import AdminAPISetting from "../../config/AdminConfig";
-import HomeAdmin from "../Home/Admin/HomeAdmin";
-import { HookGetAdminAllInnkeeper } from "../../hook/AdminHook";
+import logo from "../../image/logo365.PNG";
 const LoginAdmin = () => {
   const [username_admin, setUsername_admin] = useState();
   const [password_admin, setPassword_admin] = useState();
@@ -48,71 +46,79 @@ const LoginAdmin = () => {
 
   return (
     <Wrapper>
-      <Header />
-      <Breadcrumb className="breadcrum">
-        <Breadcrumb.Item
-          href="http://localhost:3000/"
-          className="breadcrum-item"
-        >
-          Trang chủ
-        </Breadcrumb.Item>
-        <Breadcrumb.Item active>Đăng nhập</Breadcrumb.Item>
-      </Breadcrumb>
-      <Form>
-        <Form.Group>
-          <h1>Đăng nhập </h1>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Username </Form.Label>
-          <Form.Control
-            type="username"
-            placeholder="Enter username"
-            onChange={changeusername}
-            value={username_admin}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Mật khẩu</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Mật khẩu"
-            onChange={changepassword}
-            value={password_admin}
-          />
-        </Form.Group>
-        <Button
-          variant="primary"
-          type="submit"
-          onClick={onLogin}
-          style={{ textAlign: "center" }}
-        >
-          Đăng nhập
-        </Button>
-        {/* <a
-          href="http://localhost:3000/forgotpassword"
-          style={{ marginLeft: "32%" }}
-        >
-          Bạn quên mật khẩu?
-        </a> */}
-        {/* <FB_GG>
-          <Button variant="primary" type="submit" className="Button-FB">
-            <ImFacebook2 size={20} /> Facebook
-          </Button>
-          <Button variant="primary" type="submit" className="Button-GG">
-            <FcGoogle size={20} /> Google
-          </Button>
-        </FB_GG> */}
-        {/* <Form.Group className="mb-3" controlId="formBasicDangky">
-          <Form.Label style={{ marginLeft: "20%" }}>
-            Bạn chưa có tài khoản?
-            <a href="http://localhost:3000/register" className="a-img">
-              Đăng ký ngay
-            </a>
-          </Form.Label>
-        </Form.Group> */}
-      </Form>
+      <div
+        style={{
+          position: "absolute",
+          height: "901px",
+          width: "50%",
+          left: "0px",
+          top: "0px",
+          background: `linear-gradient(0deg, rgba(21, 44, 112, 0.26), rgba(21, 44, 112, 0.26)),
+             url(https://kientrucauchau.vn/wp-content/uploads/2022/01/ban-ve-thiet-ke-noi-that-nha-tro-dep.jpeg), absolute:'stretch'`,
+        }}
+      />
+      <Image
+        src="https://kientrucauchau.vn/wp-content/uploads/2022/01/ban-ve-thiet-ke-noi-that-nha-tro-dep.jpeg"
+        style={{
+          position: "absolute",
+          height: "901px",
+          width: "50%",
+          left: "0px",
+          top: "0px",
+          opacity: 0.8,
+        }}
+      />
+      <h2
+        style={{
+          position: "absolute",
+          top: "20px",
+          right: "53%",
+          color: "white",
+        }}
+      >
+        Tìm trọ 365
+      </h2>
+      <div
+        style={{
+          right: "0%",
+          top: "150px",
+          position: "absolute",
+          width: "50%",
+        }}
+      >
+        <Image
+          src={logo}
+          style={{
+            marginBottom: "50px",
+            marginLeft: "35%",
+          }}
+        />
+        <Form style={{ width: "50%" }}>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              onChange={changeusername}
+              value={username_admin}
+            />
+          </Form.Group>
 
-      <Footer />
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              onChange={changepassword}
+              value={password_admin}
+            />
+          </Form.Group>
+
+          <Button variant="primary" type="submit" onClick={onLogin}>
+            Login
+          </Button>
+        </Form>
+      </div>
     </Wrapper>
   );
 };

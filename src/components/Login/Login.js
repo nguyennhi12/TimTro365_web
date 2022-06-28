@@ -8,7 +8,6 @@ import { FcGoogle } from "react-icons/fc";
 const Login = () => {
   return (
     <Wrapper>
-      <Header />
       <Breadcrumb className="breadcrum">
         <Breadcrumb.Item
           href="http://localhost:3000/"

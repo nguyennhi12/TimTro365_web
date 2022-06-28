@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Wrapper, Content, Headertool } from "./HomeAdmin.styles";
-import HeaderAdmin from "../../HeaderAdmin/HeaderAdmin";
-import OffCanvas from "../../OffCanvas/OffCanvas";
-import { Form, Table, Tabs, Tab } from "react-bootstrap";
-import Button from "@material-ui/core/Button";
+
+import { Form, Table, Tabs, Tab, Offcanvas, Image, Nav } from "react-bootstrap";
+import ButtonMaterial from "@material-ui/core/Button";
+
 import Footer from "../../Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import {
@@ -16,58 +16,94 @@ import Account from "./Account/Account";
 import NewsInnKeeper from "./NewsInnKeeper/NewsInnKeeper";
 const HomeAdmin = () => {
   const idtoken = getQueryVariable("token");
-  const [check, setcheck] = useState(1);
+  // const [check, setcheck] = useState(1);
   const [idUser, setIdUser] = useState();
   const [account, setAccount] = useState();
-  // const [key, setKey] = useState("new");
-  // const { account } = HookGetAdminAllInnkeeper(idtoken);
-  // // const { news: newsby } = HookAdminNewsByInnkeeper(idtoken);
+  const accountAdmin = JSON.parse(localStorage.getItem("account"));
   const { news: newsrating } = HookGetAdminRattingNews(idtoken);
-  // const navigate = useNavigate();
-  // console.log(newsrating);
-  // const newbyinnkeeper = (item) => {
-  //   console.log(item?.id_user);
-  //   window.open(`/newiduser?iduser=${item?.id_user}`);
-  // };
-
+  const [positionOption, setPositionOption] = useState("account");
   return (
     <Wrapper>
-      <HeaderAdmin />
-      <Headertool>
-        <Button
-          aria-controls="simple-menu"
-          aria-haspopup="true"
-          className="button"
-          onClick={() => setcheck(1)}
+      <Nav
+        defaultActiveKey={positionOption}
+        className="flex-column"
+        variant="pills"
+        style={{
+          width: "18%",
+          height: "901px",
+          paddingLeft: "2%",
+          paddingRight: "2%",
+          paddingTop: "1%",
+          backgroundColor: "#FEF9E8",
+        }}
+      >
+        <Nav.Item style={{ marginBottom: "30%" }}>
+          <h3>Tìm trọ 365</h3>
+        </Nav.Item>
+        <Nav.Item>
+          <div style={{ marginBottom: "30%" }}>
+            <tr>
+              <td>
+                <img
+                  src={accountAdmin?.image_admin}
+                  style={{
+                    width: "80%",
+                    height: "85%",
+                    marginRight: " 2%",
+                    borderRadius: "50%",
+                  }}
+                  alt={accountAdmin?.name_admin}
+                />
+              </td>
+              <td>
+                <div style={{ fontWeight: "bold" }}>
+                  {accountAdmin?.name_admin}
+                </div>
+                <text>{accountAdmin?.email_admin}</text>
+              </td>
+            </tr>
+          </div>
+        </Nav.Item>
+        <Nav.Link
+          eventKey="account"
+          onClick={() => setPositionOption("account")}
         >
-          Account
-        </Button>
-        <Button
-          aria-controls="simple-menu"
-          aria-haspopup="true"
-          className="button"
-          disabled
+          Quản lý người dùng
+        </Nav.Link>
+        <Nav.Item>
+          <Nav.Link eventKey="news" disabled>
+            Quản lý bản tin
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Link
+          eventKey="ratting"
+          onClick={() => setPositionOption("ratting")}
         >
-          News
-        </Button>
-      </Headertool>
-
-      {check == 1 ? (
-        <Content>
-          <Account
-            idtoken={idtoken}
-            check={check}
-            setCheck={setcheck}
-            setIdUser={setIdUser}
-            setAccount={setAccount}
-          />
-        </Content>
-      ) : (
-        <Content>
+          Quản lý đánh giá
+        </Nav.Link>
+      </Nav>
+      <div
+        style={{
+          position: "absolute",
+          top: "1%",
+          left: "15%",
+          width: "75%",
+        }}
+      >
+        {positionOption == "account" ? (
+          <Content>
+            <Account
+              idtoken={idtoken}
+              setPositionOption={setPositionOption}
+              position={positionOption}
+              setIdUser={setIdUser}
+              setAccount={setAccount}
+            />
+          </Content>
+        ) : positionOption == "news" ? (
           <NewsInnKeeper id_user={idUser} account={account} />
-        </Content>
-      )}
-
+        ) : null}
+      </div>
       {/* <Footer /> */}
     </Wrapper>
   );

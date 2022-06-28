@@ -20,25 +20,23 @@ export const Links = styled.div`
     margin-bottom: 1%;
   }
   .img-logo {
-    width: 100%;
+    width: 60%;
     height: 50%;
   }
 `;
 export const Content = styled.div`
   display: flex;
   margin-top: 2%;
-  margin-left:60%;
+  margin-right: 10%;
   .img-user {
-    width: 15%;
+    width: 10%;
     height: 55%;
     margin-right: 2%;
     border-radius: 50%;
-    
   }
   .label-user {
     font-family: Verdana, Arial, sans-serif;
     font-size: 25px;
     margin-right: 2%;
-    
   }
 `;

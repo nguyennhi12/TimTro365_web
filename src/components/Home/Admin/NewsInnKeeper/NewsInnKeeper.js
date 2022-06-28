@@ -5,7 +5,7 @@ import {
   ImageListItemBar,
   IconButton,
 } from "@mui/material";
-import { Tabs, Tab, Image } from "react-bootstrap";
+import { Tabs, Tab, Image, Button, Table } from "react-bootstrap";
 import { InfoInn, Wrapper } from "./NewsInnKeeper.styles";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AiFillInfoCircle } from "react-icons/ai";
@@ -23,34 +23,17 @@ const NewsInnKeeper = (props) => {
     HookGetNewsHideByUser(props?.id_user);
   console.log(newsHideByAdmin, newsHideByUser);
   const onClickViewInnkeeper = (item) => {
-    props?.setCheck(false);
     props?.setIdUser(item?.id_user);
   };
   return (
     <Wrapper style={{ width: "80%" }}>
       <InfoInn>
-        <Image
-          src={props?.account?.image}
-          className="avatar"
-          style={{ width: 100 }}
-        />
         <div className="info">
-          <h3>{props?.account?.displayname}</h3>
-          <h6>
-            {props?.account?.address
-              ? props?.account?.address
-              : "Chưa có thông tin"}
-          </h6>
-          <h6>
-            Số điện thoại:{" "}
-            {props?.account?.phonenumber
-              ? props?.account?.phonenumber
-              : "Chưa có thông tin"}{" "}
-            - Email:{" "}
-            {props?.account?.email
-              ? props?.account?.email
-              : "Chưa có thông tin"}
-          </h6>
+          <Image
+            src={props?.account?.image}
+            className="avatar"
+            style={{ width: "80%" }}
+          />
         </div>
       </InfoInn>
       <h4
@@ -113,7 +96,7 @@ const NewsInnKeeper = (props) => {
           <h6>Không có bản tin nào được đăng</h6>
         ) : (
           <SkeletonTheme color="#202020" highlightColor="#444">
-            {[0, 1, 2, 3, 4, 5].map((item) => (
+            {[0, 1, 2, 3].map((item) => (
               <Grid item xs={2} sm={5} md={4} className="grid-in">
                 <Skeleton height={150} width={150} />
               </Grid>
@@ -181,7 +164,7 @@ const NewsInnKeeper = (props) => {
           <h6>Không có bản tin nào được đăng</h6>
         ) : (
           <SkeletonTheme color="#202020" highlightColor="#444">
-            {[0, 1, 2, 3, 4, 5].map((item) => (
+            {[0, 1, 2].map((item) => (
               <Grid item xs={2} sm={5} md={4} className="grid-in">
                 <Skeleton height={150} width={150} />
               </Grid>
@@ -249,7 +232,7 @@ const NewsInnKeeper = (props) => {
           <h6>Không có bản tin nào được đăng</h6>
         ) : (
           <SkeletonTheme color="#202020" highlightColor="#444">
-            {[0, 1, 2, 3, 4, 5].map((item) => (
+            {[0, 1, 2].map((item) => (
               <Grid item xs={2} sm={5} md={4} className="grid-in">
                 <Skeleton height={150} width={150} />
               </Grid>

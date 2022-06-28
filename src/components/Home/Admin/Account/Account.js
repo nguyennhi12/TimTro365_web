@@ -5,7 +5,7 @@ import {
   ImageListItemBar,
   IconButton,
 } from "@mui/material";
-import { Tabs, Tab } from "react-bootstrap";
+import { Tabs, Tab, Table, Button } from "react-bootstrap";
 import { Wrapper } from "./Account.styles";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AiFillInfoCircle } from "react-icons/ai";
@@ -16,7 +16,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 const Account = (props) => {
   const { account, check } = HookGetAdminAllInnkeeper(props?.idtoken);
   const onClickViewInnkeeper = (item) => {
-    props?.setCheck(2);
+    props?.setPositionOption("news");
     props?.setIdUser(item?.id_user);
     props?.setAccount(item);
   };
@@ -28,76 +28,68 @@ const Account = (props) => {
     );
   };
   return (
-    <Wrapper style={{ width: "100%" }}>
-      <h4 style={{ marginLeft: "10%", marginTop: "1%" }}>
-        Danh sách tài khoản đã đăng kí:
-      </h4>
-      <Grid
-        container
-        spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 9, md: 20 }}
-        className="grid"
-        style={{
-          marginLeft: "20%",
-          marginBottom: 10,
-          marginTop: 10,
-        }}
-      >
-        {account?.length && check ? (
-          account.map((item) => (
-            <Grid
-              item
-              xs={2}
-              sm={5}
-              md={4}
-              key={item?.image}
-              className="grid-in"
-            >
-              <ImageListItem key={item?.image} style={{ width: 150 }}>
-                <img
-                  src={`${item?.image}`}
-                  srcSet={`${item?.image}`}
-                  alt={item?.displayname}
-                  loading="lazy"
-                  style={{ width: 150, height: 150, objectFit: "fill" }}
-                />
-                <ImageListItemBar
-                  title={
-                    item?.displayname
-                      ? `${item?.displayname}`
-                      : "Chưa có thông tin"
-                  }
-                  subtitle={
-                    item?.phonenumber
-                      ? `${item?.phonenumber}`
-                      : "Chưa có thông tin"
-                  }
-                  actionIcon={
-                    <IconButton
-                      sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                      aria-label={`info about ${item?.cost}`}
+    <Wrapper style={{ width: "100%", marginTop: "10%" }}>
+      <Table responsive="lg" style={{ width: "95%" }}>
+        <thead>
+          <tr>
+            <th>Ảnh đại diện</th>
+            <th>Tên tài khoản</th>
+            <th>Số điện thoại</th>
+            <th>Email</th>
+            <th>Địa chỉ</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {account?.length && check
+            ? account?.map((item, index) => (
+                <tr>
+                  <td>
+                    <img
+                      src={`${item?.image}`}
+                      srcSet={`${item?.image}`}
+                      alt={item?.displayname}
+                      loading="lazy"
+                      style={{ width: 100, height: 100, objectFit: "fill" }}
+                    />
+                  </td>
+                  <td>
+                    <h6 style={{ marginTop: "30%", fontSize: 18 }}>
+                      {" "}
+                      {item?.displayname}
+                    </h6>
+                  </td>
+                  <td>
+                    <div style={{ marginTop: "20%", fontSize: 18 }}>
+                      {item?.phonenumber
+                        ? `${item?.phonenumber}`
+                        : "Chưa có thông tin"}
+                    </div>
+                  </td>
+                  <td>
+                    <div style={{ marginTop: "9%", fontSize: 18 }}>
+                      {item?.email ? `${item?.email}` : "Chưa có thông tin"}
+                    </div>
+                  </td>
+                  <td>
+                    <div style={{ marginTop: "9%", fontSize: 18 }}>
+                      {item?.address ? `${item?.address}` : "Chưa có thông tin"}
+                    </div>
+                  </td>
+                  <td>
+                    <Button
+                      variant="warning"
+                      style={{ marginTop: "30%" }}
                       onClick={() => onClickViewInnkeeper(item)}
-                      target={"_blank"}
                     >
-                      <AiFillInfoCircle />
-                    </IconButton>
-                  }
-                />
-              </ImageListItem>
-            </Grid>
-          ))
-        ) : !check ? (
-          <SkeletonTheme color="#202020" highlightColor="#444">
-            {[0, 1, 2, 3, 4, 5].map((item) => (
-              <Grid item xs={2} sm={5} md={4} className="grid-in">
-                <Skeleton height={150} width={150} />
-              </Grid>
-            ))}
-          </SkeletonTheme>
-        ) : (
-          <Skeleton height={100} width={"100%"} />
-        )}
-      </Grid>
+                      View
+                    </Button>
+                  </td>
+                </tr>
+              ))
+            : null}
+        </tbody>
+      </Table>
     </Wrapper>
   );
 };

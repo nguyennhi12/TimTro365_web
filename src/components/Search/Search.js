@@ -118,7 +118,7 @@ const SearchAll = () => {
           ))}
         </Grid>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </Wrapper>
   );
 };

@@ -2,8 +2,8 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   .tabs {
     justify-content: "center";
-    alignItems: "center";
-    background: #FFFCCC;
+    alignitems: "center";
+    background: #fffccc;
     margin-right: auto;
     margin-left: auto;
   }
@@ -12,7 +12,6 @@ export const Wrapper = styled.div`
     width: 75%;
     margin-left: auto;
     margin-right: auto;
-    
   }
 `;
 
@@ -30,13 +29,15 @@ export const Content = styled.div`
       size: 20;
     }
 
-    ${'' /* Button {
+    ${
+      "" /* Button {
       display: block;
       margin: 10% auto 10% auto;
       width: 70%;
       background: blue;
       border: none;
-    } */}
+    } */
+    }
   }
   Table {
     width: 60%;
@@ -45,15 +46,13 @@ export const Content = styled.div`
   }
 `;
 export const Headertool = styled.div`
-   background: #FFFCCC;
-   padding-left: 9.5%;
-   .button{
-        margin-right: 3%;
-     
-       
-    }
-    .button:hover{
-        color:#FF6600;
-        background:yellow
-    }
+  background: #fffccc;
+  padding-left: 9.5%;
+  .button {
+    margin-right: 3%;
+  }
+  .button:hover {
+    color: #ff6600;
+    background: yellow;
+  }
 `;
