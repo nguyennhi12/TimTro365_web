@@ -14,6 +14,7 @@ import {
 import { getQueryVariable } from "../../../helper";
 import Account from "./Account/Account";
 import NewsInnKeeper from "./NewsInnKeeper/NewsInnKeeper";
+import RattingNews from "./RattingNews/RattingNews";
 const HomeAdmin = () => {
   const idtoken = getQueryVariable("token");
   // const [check, setcheck] = useState(1);
@@ -102,7 +103,17 @@ const HomeAdmin = () => {
           </Content>
         ) : positionOption == "news" ? (
           <NewsInnKeeper id_user={idUser} account={account} />
-        ) : null}
+        ) : (
+          <Content>
+            <RattingNews
+              idtoken={idtoken}
+              setPositionOption={setPositionOption}
+              position={positionOption}
+              setIdUser={setIdUser}
+              setAccount={setAccount}
+            />
+          </Content>
+        )}
       </div>
       {/* <Footer /> */}
     </Wrapper>

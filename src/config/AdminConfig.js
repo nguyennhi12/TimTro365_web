@@ -95,5 +95,36 @@ const AdminAPISetting = {
     ).json();
     return result;
   },
+  getRatting: async () => {
+    const endpoint = `${API_URL}${ADMIN}getAvgRatting`;
+    const token = localStorage.getItem("token");
+    const result = await (
+      await fetch(endpoint, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    ).json();
+    console.log(result);
+    return result;
+  },
+  hideAllNewsAdmin: async () => {
+    const endpoint = `${API_URL}${ADMIN}/adminHideAllNews`;
+    const token = localStorage.getItem("token");
+    const result = await (
+      await fetch(endpoint, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    ).json();
+    return result;
+  },
 };
 export default AdminAPISetting;

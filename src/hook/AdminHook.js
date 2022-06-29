@@ -133,3 +133,31 @@ export const HookGetNewsHideByUser = (id_user) => {
   }, [check, news, fetchNews]);
   return { news, check };
 };
+
+export const HookGetRating = () => {
+  const [rating, setRating] = useState([]);
+  const [check, setcheck] = useState(false);
+  const token = localStorage.getItem("accessToken");
+  const fetchNews = useCallback(async () => {
+    try {
+      const detail = await AdminAPISetting.getRatting();
+      console.log(detail);
+      if (detail.statusCode == 200) {
+        setRating(detail.data);
+      }
+      setcheck(true);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+  useEffect(() => {
+    try {
+      if (check == false) {
+        fetchNews();
+      }
+    } catch (error) {
+      console.warn(error);
+    }
+  }, [check, rating, fetchNews]);
+  return { rating, check };
+};
