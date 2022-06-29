@@ -82,7 +82,6 @@ const NewsAPISetting = {
     return result;
   },
   searchtype: async (search) => {
-    // const account = JSON.parse(await AsyncStorage.getItem("account"))
     const endpoint = `${API_URL}${NEWS}/search_News_Types?page=1&value=8`;
     console.log(endpoint);
     const result = await fetch(endpoint, {

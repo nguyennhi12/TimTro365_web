@@ -29,7 +29,7 @@ const RattingNews = (props) => {
     alert(result?.message);
   };
   return (
-    <Wrapper style={{ width: "100%", marginTop: "10px" }}>
+    <Wrapper style={{ width: "100%" }}>
       <div style={{ width: "95%", marginLeft: "10%" }}>
         <Button variant="success">Xem biểu đồ</Button>{" "}
         <Button variant="warning" onClick={onHideNews}>
