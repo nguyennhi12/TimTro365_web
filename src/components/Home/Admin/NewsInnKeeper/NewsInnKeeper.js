@@ -82,7 +82,7 @@ const NewsInnKeeper = (props) => {
                     <IconButton
                       sx={{ color: "rgba(255, 255, 255, 0.54)" }}
                       aria-label={`info about ${item?.cost}`}
-                      href={`http://localhost:3000/viewroom?id=${item.id_news}`}
+                      href={`https://tim-tro365-cxnl5dyq6-nguyennhi12.vercel.app/viewroom?id=${item.id_news}`}
                       target={"_blank"}
                     >
                       <AiFillInfoCircle />
