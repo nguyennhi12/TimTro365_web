@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { Wrapper, Content } from "./HomeAdmin.styles";
-
 import { Nav } from "react-bootstrap";
-
-import { HookGetAdminRattingNews } from "../../../hook/AdminHook";
 import { getQueryVariable } from "../../../helper";
 import Account from "./Account/Account";
 import NewsInnKeeper from "./NewsInnKeeper/NewsInnKeeper";
@@ -14,7 +11,6 @@ const HomeAdmin = () => {
   const [idUser, setIdUser] = useState();
   const [account, setAccount] = useState();
   const accountAdmin = JSON.parse(localStorage.getItem("account"));
-  const { news: newsrating } = HookGetAdminRattingNews(idtoken);
   const [positionOption, setPositionOption] = useState("account");
   return (
     <Wrapper>
