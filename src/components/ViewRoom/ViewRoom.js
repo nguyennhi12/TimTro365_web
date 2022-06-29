@@ -119,7 +119,7 @@ const ViewRoom = () => {
         />
         <Info>
           <div className="header">
-            <h4>{news[0]?.header}</h4>
+            <h4>{news[0]?.header} </h4>
             <p>
               {" "}
               <HiLocationMarker size={25} color="red" />
