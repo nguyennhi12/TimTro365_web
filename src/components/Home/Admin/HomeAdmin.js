@@ -1,16 +1,9 @@
 import React, { useState } from "react";
-import { Wrapper, Content, Headertool } from "./HomeAdmin.styles";
+import { Wrapper, Content } from "./HomeAdmin.styles";
 
-import { Form, Table, Tabs, Tab, Offcanvas, Image, Nav } from "react-bootstrap";
-import ButtonMaterial from "@material-ui/core/Button";
+import { Nav } from "react-bootstrap";
 
-import Footer from "../../Footer/Footer";
-import { useNavigate } from "react-router-dom";
-import {
-  HookGetAdminAllInnkeeper,
-  HookAdminNewsByInnkeeper,
-  HookGetAdminRattingNews,
-} from "../../../hook/AdminHook";
+import { HookGetAdminRattingNews } from "../../../hook/AdminHook";
 import { getQueryVariable } from "../../../helper";
 import Account from "./Account/Account";
 import NewsInnKeeper from "./NewsInnKeeper/NewsInnKeeper";
